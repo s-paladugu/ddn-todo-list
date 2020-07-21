@@ -1,4 +1,8 @@
 import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
+import {setTodoItem, toggleTodoItem} from "./redux/todo_items/actions";
+
 import TodoItem from "./components/TodoItem";
 
 /*
@@ -29,39 +33,18 @@ const createTodoItem = (name) => {
 
 const TodoApp = () => {
   const [newTodoName, setNewTodoName] = useState("");
-  const [todoItems, setTodoItems] = useState([]);
+  // const [todoItems, setTodoItems] = useState([]);
 
-  useEffect(() => {
-    if (todoItems.length > 0) {
-      localStorage.setItem(TODO_ITEMS_KEY, JSON.stringify(todoItems));
-    }
-  }, [todoItems]);
-
-  useEffect(() => {
-    const fetchedTodoItems = localStorage.getItem(TODO_ITEMS_KEY);
-    setTodoItems(JSON.parse(fetchedTodoItems) || []);
-  }, []);
+  const todoItems = useSelector((state) => state.todoItems.byId);
+  const dispatch = useDispatch();
 
   const handleCreateTodo = () => {
-    setTodoItems([...todoItems, createTodoItem(newTodoName)]);
+    dispatch(setTodoItem(createTodoItem(newTodoName)));
   };
 
   const handleToggleChecked = (id) => {
-    const updatedTodoItems = todoItems.map((item) => {
-      if (item.id !== id) {
-        return item;
-      }
-
-      return {
-        ...item,
-        checked: !item.checked,
-      };
-    });
-
-    setTodoItems(updatedTodoItems);
+    dispatch(toggleTodoItem(id));
   };
-
-  console.log(todoItems);
 
   return (
     <div>
@@ -73,7 +56,8 @@ const TodoApp = () => {
       <button onClick={handleCreateTodo}>Create Todo</button>
 
       <h3>Todo Items</h3>
-      {todoItems.map((item) => {
+      {Object.keys(todoItems).map((itemId) => {
+        const item = todoItems[itemId];
         return (
           <TodoItem
             id={item.id}
