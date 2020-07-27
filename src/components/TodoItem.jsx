@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
 const TodoItemContainer = styled.div`
@@ -11,6 +11,13 @@ const TodoItemName = styled.div`
 `;
 
 export default (props) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [todoName, setTodoName] = useState("");
+
+  useEffect(() => {
+    setTodoName(props.text);
+  }, [props.text]);
+
   return (
     <TodoItemContainer>
       <input
@@ -18,7 +25,23 @@ export default (props) => {
         checked={props.checked}
         onChange={() => props.onToggleChecked(props.id)}
       />
-      <TodoItemName checked={props.checked}>{props.name}</TodoItemName>
+      {isEditing ? (
+        <input value={todoName} onChange={(e) => setTodoName(e.target.value)} />
+      ) : (
+        <TodoItemName checked={props.checked}>{props.text}</TodoItemName>
+      )}
+      {isEditing ? (
+        <button
+          onClick={() => {
+            setIsEditing(false);
+            props.onUpdate(props.id, todoName);
+          }}
+        >
+          Save
+        </button>
+      ) : (
+        <button onClick={() => setIsEditing(true)}>Edit</button>
+      )}
     </TodoItemContainer>
   );
 };

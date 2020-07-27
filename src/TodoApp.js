@@ -1,7 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {setTodoItem, toggleTodoItem} from "./redux/todo_items/actions";
+import {
+  setTodoItem,
+  toggleTodoItem,
+  getTodos,
+  createTodo,
+} from "./redux/todo_items/actions";
 
 import TodoItem from "./components/TodoItem";
 
@@ -23,11 +28,11 @@ function uuidv4() {
   });
 }
 
-const createTodoItem = (name) => {
+const createTodoItem = (text) => {
   return {
     id: uuidv4(),
-    name: name,
-    checked: false,
+    text: text,
+    state: "incomplete",
   };
 };
 
@@ -38,12 +43,26 @@ const TodoApp = () => {
   const todoItems = useSelector((state) => state.todoItems.byId);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getTodos());
+  }, []);
+
   const handleCreateTodo = () => {
-    dispatch(setTodoItem(createTodoItem(newTodoName)));
+    dispatch(createTodo(createTodoItem(newTodoName)));
   };
 
   const handleToggleChecked = (id) => {
     dispatch(toggleTodoItem(id));
+  };
+
+  const handleUpdate = (id, todoName) => {
+    const todoItem = todoItems[id];
+    dispatch(
+      setTodoItem({
+        ...todoItem,
+        text: todoName,
+      })
+    );
   };
 
   return (
@@ -61,9 +80,10 @@ const TodoApp = () => {
         return (
           <TodoItem
             id={item.id}
-            name={item.name}
+            text={item.text}
             checked={item.checked}
             onToggleChecked={handleToggleChecked}
+            onUpdate={handleUpdate}
           />
         );
       })}

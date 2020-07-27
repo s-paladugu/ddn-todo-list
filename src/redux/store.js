@@ -1,11 +1,7 @@
-import {createStore, applyMiddleware, AnyAction} from "redux";
-import {createLogger} from "redux-logger";
-import thunk, {ThunkMiddleware} from "redux-thunk";
-import rootReducer, {AppState} from "./reducers";
+import {createStore, applyMiddleware} from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "./reducers";
 
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk, createLogger())
-);
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

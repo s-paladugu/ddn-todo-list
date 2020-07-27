@@ -1,0 +1,93 @@
+{
+	"variables": [],
+	"info": {
+		"name": "DDN Todo List",
+		"_postman_id": "970535c7-bd97-7441-d355-0116e5dcddf1",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Todos",
+			"request": {
+				"url": "https://ddn-todo-app.herokuapp.com/todos",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Todo",
+			"request": {
+				"url": "https://ddn-todo-app.herokuapp.com/todos",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Example Todo Itemsdfasdfasdf\",\n\t\"state\": \"incomplete\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Todo",
+			"request": {
+				"url": "https://ddn-todo-app.herokuapp.com/todos/3",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Todo",
+			"request": {
+				"url": "https://ddn-todo-app.herokuapp.com/todos/3",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"state\": \"complete\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Todo",
+			"request": {
+				"url": "https://ddn-todo-app.herokuapp.com/todos/2",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
