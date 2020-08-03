@@ -6,6 +6,7 @@ import {
   toggleTodoItem,
   getTodos,
   createTodo,
+  updateTodo,
 } from "./redux/todo_items/actions";
 
 import TodoItem from "./components/TodoItem";
@@ -65,6 +66,14 @@ const TodoApp = () => {
     );
   };
 
+  const handleUpdate2 = (id, todoName) => {
+    const todoItem = todoItems[id];
+    dispatch(updateTodo({...todoItem, text : todoName}));
+    //console.log({...todoItem, text : todoName});
+    //console.log(todoItem);
+    //dispatch(createTodo(createTodoItem({...todoItem, text : todoName})));
+  };
+
   return (
     <div>
       <input
@@ -83,7 +92,7 @@ const TodoApp = () => {
             text={item.text}
             checked={item.checked}
             onToggleChecked={handleToggleChecked}
-            onUpdate={handleUpdate}
+            onUpdate={handleUpdate2}
           />
         );
       })}

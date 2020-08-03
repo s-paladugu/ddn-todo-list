@@ -2,6 +2,8 @@ import * as api from "./api";
 
 export const SET_TODO_ITEM = "SET_TODO_ITEM";
 export const TOGGLE_TODO_ITEM = "TOGGLE_TODO_ITEM";
+export const UPDATE_TODO_ITEM = "UPDATE_TODO_ITEM";
+
 
 export const setTodoItem = (todoItem) => {
   return {
@@ -9,6 +11,13 @@ export const setTodoItem = (todoItem) => {
     todoItem: todoItem,
   };
 };
+
+// export const updateTodoItem = (todoItem) => {
+//   return {
+//     type: UPDATE_TODO_ITEM,
+//     todoItem: todoItem,
+//   };
+// }
 
 export const toggleTodoItem = (id) => {
   return {
@@ -26,6 +35,17 @@ export const getTodos = () => {
         });
       }
       console.log(response);
+    });
+  };
+};
+
+export const updateTodo = (todoItem) => {
+  return (dispatch) => {
+    return api.updateTodo(todoItem).then((response) => {
+        if (response.status === "ok") {
+            dispatch(setTodoItem(response.todo_item));
+        }
+        console.log(response);
     });
   };
 };

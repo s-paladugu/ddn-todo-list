@@ -13,7 +13,7 @@ const todoItemReducer = (state = initialState, action) => {
           ...state.byId,
           [action.todoItem.id]: action.todoItem,
         },
-      };
+      }; 
     case TOGGLE_TODO_ITEM:
       return {
         ...state,

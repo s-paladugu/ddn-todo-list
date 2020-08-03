@@ -7,3 +7,8 @@ export function getTodos() {
 export function createTodo(todoItem) {
   return doRequest("POST", BASE_URL + "todos", todoItem);
 }
+
+export function updateTodo(todoItem) {
+  return doRequest("PATCH", BASE_URL + `todos/${todoItem.id}`, todoItem);
+}
+

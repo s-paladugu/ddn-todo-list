@@ -1,4 +1,5 @@
 export const BASE_URL = "https://ddn-todo-app.herokuapp.com/";
+// export const BASE_URL = "http://ddn-todo-app.herokuapp.com/";
 
 export const doRequest = (verb, url, body = null, headers = {}) => {
   const jsonBody = JSON.stringify(body);
@@ -11,7 +12,7 @@ export const doRequest = (verb, url, body = null, headers = {}) => {
     },
   };
 
-  if (verb === "POST" || verb === "PUT") {
+  if (verb === "POST" || verb === "PUT" || verb === "PATCH") {
     request["body"] = jsonBody;
   }
 
